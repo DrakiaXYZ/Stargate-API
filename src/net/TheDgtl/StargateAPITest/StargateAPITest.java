@@ -3,7 +3,9 @@ package net.TheDgtl.StargateAPITest;
 import java.util.logging.Logger;
 
 import net.TheDgtl.Stargate.Portal;
+import net.TheDgtl.Stargate.event.StargateActivateEvent;
 import net.TheDgtl.Stargate.event.StargateCloseEvent;
+import net.TheDgtl.Stargate.event.StargateDeactivateEvent;
 import net.TheDgtl.Stargate.event.StargateListener;
 import net.TheDgtl.Stargate.event.StargateOpenEvent;
 import net.TheDgtl.Stargate.event.StargatePortalEvent;
@@ -54,11 +56,32 @@ public class StargateAPITest extends JavaPlugin {
 			
 			log.info("Origin: " + origin.getName() + " dest: " + dest.getName());
 			log.info("Exit Location: " + exit);
-			
+			/*
+			 * This is an example of changing the exit location for a gate
+
 			exit.setX(exit.getX() + 20);
 			exit.setZ(exit.getZ() + 10);
 			
 			log.info("Setting exit to new location: " + exit);
+			
+			*/
+		}
+		
+		@Override
+		public void onStargateActivate(StargateActivateEvent event) {
+			Portal portal = event.getPortal();
+			Player player = event.getPlayer();
+			
+			log.info("Stargate " + portal.getName() + " on network " + portal.getNetwork() + " activated");
+			if (player != null)
+				log.info("Activated by " + player.getName());
+		}
+		
+		@Override
+		public void onStargateDeactivate(StargateDeactivateEvent event) {
+			Portal portal = event.getPortal();
+			
+			log.info("Stargate " + portal.getName() + " on network " + portal.getNetwork() + " deactivated");
 		}
 	}
 	
