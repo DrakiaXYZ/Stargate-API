@@ -3,6 +3,7 @@ package net.TheDgtl.StargateAPITest;
 import java.util.logging.Logger;
 
 import net.TheDgtl.Stargate.Portal;
+import net.TheDgtl.Stargate.event.StargateAccessEvent;
 import net.TheDgtl.Stargate.event.StargateActivateEvent;
 import net.TheDgtl.Stargate.event.StargateCloseEvent;
 import net.TheDgtl.Stargate.event.StargateDeactivateEvent;
@@ -82,6 +83,25 @@ public class StargateAPITest extends JavaPlugin {
 			Portal portal = event.getPortal();
 			
 			log.info("Stargate " + portal.getName() + " on network " + portal.getNetwork() + " deactivated");
+		}
+		
+		@Override
+		public void onStargateAccess(StargateAccessEvent event) {
+			Portal portal = event.getPortal();
+			Player player = event.getPlayer();
+			if (portal.getNetwork().equalsIgnoreCase("Faction1")) {
+				if (player.getName().equalsIgnoreCase("Drakia")) {
+					// Bypass perm checks for any Faction1 gate
+					event.setBypassPerms(true);
+				}
+			}
+			
+			if (portal.getNetwork().equalsIgnoreCase("Faction2")) {
+				if (player.getName().equalsIgnoreCase("Drakia")) {
+					// Deny access to any Faction 2 gate
+					event.setDeny(true);
+				}
+			}
 		}
 	}
 	
