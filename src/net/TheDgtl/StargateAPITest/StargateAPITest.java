@@ -91,8 +91,8 @@ public class StargateAPITest extends JavaPlugin {
 			Player player = event.getPlayer();
 			if (portal.getNetwork().equalsIgnoreCase("Faction1")) {
 				if (player.getName().equalsIgnoreCase("Drakia")) {
-					// Bypass perm checks for any Faction1 gate
-					event.setBypassPerms(true);
+					// Allow access to any Faction1 gate
+					event.setDeny(false);
 				}
 			}
 			
